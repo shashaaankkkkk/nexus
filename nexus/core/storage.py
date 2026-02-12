@@ -1,5 +1,5 @@
 import sqlite3
-import time
+import json
 from pathlib import Path
 
 from nexus.core.config import get_data_dir
@@ -19,23 +19,28 @@ class Storage:
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS messages (
             id TEXT PRIMARY KEY,
-            sender TEXT NOT NULL,
-            content TEXT NOT NULL,
+            data TEXT NOT NULL,
             timestamp INTEGER NOT NULL
         )
         """)
 
         self.conn.commit()
 
-    def save_message(self, message_id: str, sender: str, content: str):
+    def save_message(self, message):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO messages (id, sender, content, timestamp) VALUES (?, ?, ?, ?)",
-            (message_id, sender, content, int(time.time()))
+            "INSERT INTO messages (id, data, timestamp) VALUES (?, ?, ?)",
+            (
+                message.id,
+                json.dumps(message.to_dict()),
+                message.timestamp
+            )
         )
         self.conn.commit()
 
     def load_messages(self):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM messages ORDER BY timestamp ASC")
-        return cursor.fetchall()
+        cursor.execute(
+            "SELECT data FROM messages ORDER BY timestamp ASC"
+        )
+        return [json.loads(row["data"]) for row in cursor.fetchall()]

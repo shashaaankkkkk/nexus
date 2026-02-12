@@ -3,5 +3,10 @@ from textual.widgets import Static
 
 
 class ChatPanel(VerticalScroll):
-    def add_message(self, content: str) -> None:
-        self.mount(Static(content, classes="message"))
+
+    def add_message(self, message):
+        bubble = Static(
+            f"{message.sender}: {message.content}",
+            classes="message"
+        )
+        self.mount(bubble)
