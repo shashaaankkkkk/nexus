@@ -1,0 +1,56 @@
+Screen {
+    background: #0f1117;
+    color: #ffffff;
+}
+
+#main-layout {
+    height: 1fr;
+}
+
+#sidebar {
+    width: 28%;
+    background: #1b1f2a;
+    border-right: solid #3c40c6;
+    padding: 1 2;
+}
+
+#logo {
+    text-style: bold;
+    color: #5f27cd;
+    padding-bottom: 1;
+}
+
+#status {
+    color: #10ac84;
+    padding-bottom: 1;
+}
+
+#chat-panel {
+    background: #141622;
+    padding: 1 2;
+}
+
+.message {
+    background: #2c2f4a;
+    padding: 1;
+    margin: 1 0;
+    border: round #5f27cd;
+}
+
+#input-bar {
+    height: 3;
+    background: #1b1f2a;
+    border-top: solid #3c40c6;
+    padding: 1;
+}
+
+Input {
+    background: #2c2f4a;
+    border: none;
+    color: #ffffff;
+}
+
+Button {
+    background: #5f27cd;
+    color: #ffffff;
+}
